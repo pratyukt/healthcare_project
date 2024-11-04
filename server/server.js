@@ -15,6 +15,8 @@ const port= process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
+//Route for user registration and authentication
+app.use("/api/register", require("./routes/userRoutes"));
 
 //Error handling
 app.use(errorHandler);
