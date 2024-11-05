@@ -1,19 +1,14 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home</title>
 </head>
 <body>
-    {{> header}}
-    <ul>
-        {{#each users}}
-            <li>
-                <h2>Username: {{username}}</h2>
-                <p>Date: {{date}}</p>
-                <p>Subject: {{subject}}</p>
-            </li>
-        {{/each}}
-    </ul>
+    {{>header}}
+    <a href="/user"><h2>redirect to user List</h2></a>
+    <h1>Welcome, {{username}}!</h1>
+    <p>Age: {{age}}</p>
 </body>
 </html>

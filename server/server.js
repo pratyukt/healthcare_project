@@ -1,45 +1,59 @@
-const express= require("express");
-const connectDb= require("./config/dbConnection");
+const express = require("express");
+const connectDb = require("./config/dbConnection");
 const errorHandler = require("./middlewares/errorHandler");
-const cors= require ("cors");
-const path = require("path");
+const cors = require("cors");
 const hbs = require("hbs");
-
-// env file config
+const path = require("path");
 const dotenv = require("dotenv");
+
+// Environment variable configuration
 dotenv.config();
 
+// Database connection
 connectDb();
+
 const app = express();
-const port= process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
-app.use(express.json());
+// Middleware setup
 app.use(cors());
-//Route for user registration and authentication
-app.use("/api/register", require("./routes/userRoutes"));
+app.use(express.json()); // for parsing application/json
 
-//Error handling
+// Handlebars view engine setup
+app.set('view engine', 'hbs');
+hbs.registerPartials(path.join(__dirname, '/views/partials'));
+
+// Routes
+const doctorRoutes = require("./routes/doctorDetailsRoutes");
+app.use("/api/doctors", doctorRoutes);
+app.use("/api/register", require("./routes/userRoutes")); // Assuming you have userRoutes set up
+
+// Error handling middleware
 app.use(errorHandler);
 
-//Routes below
-app.get("/",(req,res)=>{
-    res.send("working")
+// Basic Routes
+app.get("/", (req, res) => {
+    res.send("working");
 });
 
-app.set('view engine' , 'hbs');
+app.get("/home", (req, res) => {
+    res.render("home", { 
+        username: "aaa",
+        age: 20,
+    });
+});
 
-app.get("/home",(req,res)=>{
-    res.render("home",{
-        users: [
-            { username: "aaa", date: "23-10-2024", subject: "Maths" },
-            { username: "bbb", date: "23-10-2014", subject: "Science" },
-            { username: "ccc", date: "23-10-2004", subject: "Hindi" }
-        ]
-    })
-})
+app.get("/user", (req, res) => {
+    const users = [
+        { username: "aaa", age: 20 },
+        { username: "bbb", age: 22 },
+        { username: "ccc", age: 21 }
+    ];
+    
+    res.render("user", { users });
+});
 
-hbs.registerPartials(path.join(__dirname, '/views/partials/'));
-
+// Server Listening
 app.listen(port, () => {
     console.log(`Server is running on port http://localhost:${port}`);
 });
