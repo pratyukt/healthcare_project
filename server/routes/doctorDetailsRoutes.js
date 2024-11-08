@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { registerDoctor } = require("../controllers/doctorDetailsController");
+const {jwtAuthMiddleware} = require("../middlewares/jwtauthmiddleware");
 
-// Doctor registration route
-router.post("/register", registerDoctor);
+//Doctor registration route
+router.post("/register",jwtAuthMiddleware , registerDoctor);
 
 module.exports = router;
-
