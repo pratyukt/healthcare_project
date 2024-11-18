@@ -24,13 +24,13 @@ const registerDoctor = asyncHandler(async (req, res) => {
     const user = await Doctor.create({
         name,
         email,
-        speciality, 
+        speciality,
         phoneNumber,
         experience,
         address,
     });
 
-    if (user) { 
+    if (user) {
         res.status(201).json({
             _id: user.id,
             name: user.name,

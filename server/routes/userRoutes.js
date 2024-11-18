@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { registerUser, loginUser } = require("../controllers/userController");
-// const {jwtAuthMiddleware} = require("../middlewares/jwtAuthMiddleware");
-import {jwtAuthMiddleware} from "../middlewares/jwtauthmiddleware";
+const {jwtAuthMiddleware} = require("../middlewares/jwtAuthMiddleware");
+// import {jwtAuthMiddleware} from "../middlewares/jwtAuthMiddleware";
 // User registration route
 router.post("/register", registerUser);
 
